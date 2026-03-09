@@ -94,22 +94,30 @@ public:
 
     void print() {
         Node* current = head;
-        if (!current) return;
+        if (!current) {
+            cout << "List is empty" << endl;
+            return;
+        }
         while (current) {
-            cout << current->data << " ";
+            cout << "    "  << current->data.getName() << " (" 
+                 << current->data.getColor() << ", " 
+                 << current->data.getAge() << ")" << endl;
             current = current->next;
         }
-        cout << endl;
     }
 
     void print_reverse() {
         Node* current = tail;
-        if (!current) return;
+        if (!current) {
+            cout << "List is empty" << endl;
+            return;
+        }
         while (current) {
-            cout << current->data << " ";
+            cout << "    "  << current->data.getName() << " (" 
+                 << current->data.getColor() << ", " 
+                 << current->data.getAge() << ")" << endl;
             current = current->prev;
         }
-        cout << endl;
     }
 
     ~DoublyLinkedList() {
@@ -132,6 +140,20 @@ int main() {
     for (int i = 0; i < randomSize; ++i) {
         list.push_back(Goat());
     }
+
+    // Add a custom Goat with parameterized constructor
+    cout << "--- Add a custom goat (parameterized constructor) ---" << endl;
+    Goat customGoat(5, "Luna", "Silver");
+    list.push_front(customGoat);
+
+    // Print results
+    cout << "Forward: " << endl;
+    list.print();
+
+    cout << endl;
+
+    cout << "Backward: " << endl;
+    list.print_reverse();
 
     return 0;
 }
