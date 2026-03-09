@@ -1,8 +1,54 @@
 //COMSC-210-5068, Lab 21, Yang Liu
 #include <iostream>
+#include <string> 
+#include <cstdlib> 
+#include <ctime> 
 using namespace std;
 
-const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
+const int MIN_GOAT_AGE = 1, MAX_GOAT_AGE = 20; 
+const int MIN_LIST_SIZE = 5, MAX_LIST_SIZE = 20; 
+const int NAME_COUNT = 15, COLOR_COUNT = 15; 
+
+// Goat Class
+class Goat {
+private:
+    int age;
+    string name;
+    string color;
+    static string names[];
+    static string colors[];
+
+public:
+    //constructor
+    Goat() {
+        age = rand() % (MAX_GOAT_AGE - MIN_GOAT_AGE + 1) + MIN_GOAT_AGE;
+        name = names[rand() % NAME_COUNT];
+        color = colors[rand() % COLOR_COUNT];
+    }
+    //constructor with parameters
+    Goat(int a, string n, string c) : age(a), name(n), color(c) {
+        if (a < MIN_GOAT_AGE || a > MAX_GOAT_AGE) {
+            cout << "Age " << a << " is invalid! Set to " << MIN_GOAT_AGE << '.' << endl;
+            age = MIN_GOAT_AGE;
+        }
+    }
+
+    int getAge() const { return age; }
+    string getName() const { return name; }
+    string getColor() const { return color; }
+};
+
+string Goat::names[] = {
+    "Snowy", "Midnight", "Blossom", "Fluffball", "Bean",
+    "Bleater", "Chonk", "Hopper", "Joy", "GoodBoy",
+    "Strong", "Lassie", "Rascal", "Sweetie", "Goofy"
+};
+
+string Goat::colors[] = {
+    "White", "Black", "Brown", "Gray", "Spotted",
+    "Yellow", "Beige", "Chestnut", "Cream", "Gold",
+    "Red", "Purple", "Blue", "Green", "Pink"
+};
 
 class DoublyLinkedList {
 private:
@@ -133,10 +179,7 @@ public:
 // Driver program
 int main() {
     DoublyLinkedList list;
-    int size = rand() % (MAX_LS-MIN_LS+1) + MIN_LS;
 
-    for (int i = 0; i < size; ++i)
-        list.push_back(rand() % (MAX_NR-MIN_NR+1) + MIN_NR);
     cout << "List forward: ";
     list.print();
 
